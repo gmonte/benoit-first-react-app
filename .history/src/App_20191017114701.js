@@ -12,7 +12,9 @@ function App() {
   }, [])
   
   useEffect(() => {
-    setTitle(`${ name }: react`)
+    if (name) {
+      setTitle(`${ name }: ${ title }`)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name])
 
