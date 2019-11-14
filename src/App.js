@@ -1,12 +1,12 @@
-import React from 'react';
-import AppTodo from './containers/AppTodo'
+import React from "react";
+import AppTodo from "./containers/AppTodo";
 
 const App = () => {
   return (
     <div>
       <AppTodo />
-      <br />
-      <AppTodo />
+      {/* <br /> */}
+      {/* <AppTodo /> */}
     </div>
   );
 };

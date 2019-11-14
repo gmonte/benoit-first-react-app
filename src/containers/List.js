@@ -1,22 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const List = props => {
-  const { list, removeTodo } = props
+  const { list, removeTodo } = props;
 
   return (
     <ul>
-      {
-        list.map((todo, index) => (
-          <li key={index} onClick={ () => removeTodo(index) }>{todo}</li>
-        ))
-      }
+      {list.map(({ name, id }) => (
+        <li key={id} onClick={() => removeTodo(id)}>
+          {name}
+        </li>
+      ))}
     </ul>
   );
 };
 
 List.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.string).isRequired,
+  list: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeTodo: PropTypes.func.isRequired
 };
 
