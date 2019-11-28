@@ -1,33 +1,44 @@
-import React, { useState, useEffect } from "react";
-import { getTodoList } from "../services/resources/todo";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Types } from "../store/ducks/todo";
+// import { getTodoList } from "../services/resources/todo";
 import Form from "./Form";
 import List from "./List";
 
 const App = () => {
-  const [todoList, setTodoList] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const store = useSelector(store => store);
+  const todoList = useSelector(store => store.todo.data);
+  const loading = useSelector(store => store.todo.loading);
 
-  useEffect(() => {
-    const getTodoListAsync = async () => {
-      try {
-        const serverTodoList = await getTodoList();
-        setTodoList([...todoList, ...serverTodoList]);
-      } finally {
-        setLoading(false);
-      }
-    };
+  console.warn("store", store);
 
-    getTodoListAsync();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   const getTodoListAsync = async () => {
+  //     try {
+  //       const serverTodoList = await getTodoList();
+  //       setTodoList([...todoList, ...serverTodoList]);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   getTodoListAsync();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const addTodo = todo => {
-    setTodoList([...todoList, todo]);
+    dispatch({
+      type: Types.ADD_TODO,
+      todo
+    });
   };
 
   const removeTodo = id => {
-    const newTodoList = todoList.filter(todo => todo.id !== id);
-    setTodoList(newTodoList);
+    dispatch({
+      type: Types.REMOVE_TODO,
+      id
+    });
   };
 
   return (
